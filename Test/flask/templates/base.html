@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat&family=Roboto+Slab&display=swap" rel="stylesheet">
+</head>
+<body>
+    <img alt="" class="background" src="\static\img\1-55.jpg">
+    <header>
+        <div class="contener">
+            <div class="logo_header">
+                <a href="/citi"><h3 class="logo">Города Росси</h3></a>
+            </div>
+            <ul class="menu">
+                <li><a href="/citi/small">Малые города</a></li>
+                <li><a href="/citi/medium">Средние города</a></li>
+                <li><a href="/citi/big_cities">Большие города</a></li>
+                <li><a href="/citi/bigСities">Крупные города</a></li>
+                <li><a href="/citi/largest">Крупнейшие города</a></li>
+                <li><a href="/citi/millionaires">Города миллионеры</a></li>
+            </ul>
+        </div>
+    </header>
+    <div class="contener">
+        {% block content%}{% endblock %}
+        {% block forma%}{% endblock %}
+    </div>
+
+    {% block scripts %}
+        <script>
+            document.querySelector('ul a[href="' + location.pathname + '"]').className = 'activ';
+        </script>
+    {% endblock %}
+</body>
+</html>
