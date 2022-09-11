@@ -1,0 +1,15 @@
+.sudoku{
+    text-align: center;
+}
+
+td, tr, th{
+   border: dashed red;
+}
+
+.el{
+    border: none;
+    text-align: center;
+    font: 1em sans-serif;
+    
+   
+}

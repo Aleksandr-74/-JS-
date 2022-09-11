@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+    <title>Title</title>
+</head>
+<body>
+
+<form  class="game" action="" method="post">
+    <table class="sudoku" name="game" >
+    {% for row in sudoku %}
+        <tr class="sudoku_row">
+        {% for el in row %}
+            <th class="element">
+                {% if el == 0 %}
+                  <input class="el" name="test" type="number" min="1" max="9">
+                {% else %}
+                  <p>{{ el }}</p>
+                {% endif %}
+            </th>
+        {% endfor %}
+        </tr>
+    {% endfor %}
+    </table>
+    <input type="submit" value="Оtправить">
+</form>
+</body>
+</html>
