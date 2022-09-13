@@ -5,7 +5,9 @@
 td, tr, th{
    border: dashed red;
 }
-
+textarea {
+  resize: none;
+}
 .el{
     border: none;
     text-align: center;

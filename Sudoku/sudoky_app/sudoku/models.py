@@ -11,7 +11,6 @@ sudoku = [[5, 3, 0, 0, 7, 0, 0, 0, 0],
           [0, 0, 0, 0, 8, 0, 0, 7, 9]]
 
 
-sud = [[8, 2, 3, 4, 5, 9, 1, 1, 6], [7, 3, 2, 4, 5, 6, 1, 8, 9]]
 copy = {1, 2, 3, 4, 5, 6, 7, 8, 9}
 
 # проверка на заполненость поля
@@ -42,7 +41,7 @@ def chekColum(a):
     colum3 = set()
     for i in range(n):
         if (len(colum3)) <= n:
-            for j in range(n):
+            for j in range(3):
                  colum.add(a[i][j])
                  colum2.add(a[i][j + 3])
                  colum3.add(a[i][j + 6])
@@ -57,12 +56,14 @@ def chekColum(a):
 
 
 def game(a):
-    if chekFilled(sudoku):
-        if chek(sudoku) and chekColum(sudoku):
-            return True
-        else:
-            return False
-    return False
+    if not chekFilled(a):
+        return 'Oшибка!'
+    elif not chek(a):
+        return 'Ошибка!'
+    elif not chekColum(sudoku):
+        return 'Ошибка'
+    else:
+        return 'Верно!'
 #
 
 

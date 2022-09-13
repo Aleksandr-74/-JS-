@@ -10,19 +10,20 @@
 
 <form  class="game" action="" method="post">
     <table class="sudoku" name="game" >
-    {% for row in sudoku %}
-        <tr class="sudoku_row">
-        {% for el in row %}
-            <th class="element">
-                {% if el == 0 %}
-                  <input class="el" name="test" type="number" min="1" max="9">
-                {% else %}
-                  <p>{{ el }}</p>
-                {% endif %}
-            </th>
+        {% for i in range(9) %}
+            <tr class="sudoku_row">
+                {% for j in range(9) %}
+                    <th class="element">
+                        {% if sudoku[i][j] == 0 %}
+                            <input class="el" name="{{ i }}{{ j }}" type="number" min="1" max="9">
+                        {% else %}
+<!--                             <input  disabled=disabled  name="{{ i }}{{ j }}" value='{{ sudoku[i][j] }}'>-->
+                           <textarea disabled=disabled name="{{ i }}{{ j }}" >{{ sudoku[i][j] }}</textarea>
+                        {% endif %}
+                    </th>
+                {% endfor %}
+            </tr>
         {% endfor %}
-        </tr>
-    {% endfor %}
     </table>
     <input type="submit" value="Оtправить">
 </form>
