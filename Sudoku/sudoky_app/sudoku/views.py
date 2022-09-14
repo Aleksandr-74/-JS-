@@ -24,9 +24,8 @@ def hello():
         for i in range(9):
             for j in range(9):
                 if cops[i][j] == 0:
-                    el = request.form.get(str(i) + str(j))
                     try:
-                        cops[i][j] = int(el)
+                        cops[i][j] = int(request.form.get(str(i) + str(j)))
                     except:
                         cops[i][j] = 0
 
