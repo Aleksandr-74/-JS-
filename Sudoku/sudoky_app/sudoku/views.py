@@ -1,37 +1,38 @@
 import copy
 
+from click import clear
 from flask import render_template, request
 
 from sudoky_app import app
-from sudoky_app.sudoku.models import sudoku, cops
-
+from sudoky_app.sudoku.models import sudoku
 
 @app.route('/', methods=['GET', 'POST'])
 def hello():
-    cops = copy.copy(sudoku)
+
+    copys = copy.deepcopy(sudoku)
+
     if request.method == 'POST':
 
+
         if request.form.get('clear'):
+            copys.clear()
+            copys = copy.deepcopy(sudoku)
+            print(copys)
             print('yu')
-            # cops = copy.deepcopy(sudoku)
-            for i in range(9):
-                for j in range(9):
-                    cops[i][j] = copy.deepcopy(sudoku[i][j])
-            print(cops)
-            print(sudoku)
+
 
 
         for i in range(9):
             for j in range(9):
-                if cops[i][j] == 0:
+                if copys[i][j] == 0:
                     try:
-                        cops[i][j] = int(request.form.get(str(i) + str(j)))
+                        copys[i][j] = int(request.form.get(str(i) + str(j)))
                     except:
-                        cops[i][j] = 0
+                        copys[i][j] = 0
 
 
 
 
 
 
-    return render_template('index.html', sudoku=sudoku)
+    return render_template('index.html', sudoku=copys)
