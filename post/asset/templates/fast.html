@@ -1,0 +1,21 @@
+{% extends 'base_block.html'%}
+{% block content%}
+<div class="hedear_content">
+    <div class="logo"><h4>Наши посты</h4></div>
+</div>
+
+<div class="fast_block">
+    {% for fastes in listFast %}
+        <div class="fast_list">
+            <div class="intro_img"><img src="static\img\png-transparent-computer-icons-building-building.png" alt=""></div>
+            <div class="line_text"> <h4>{{ fastes.name }}</h4></div>
+            <div class="intro_text"><p>{{ fastes.fast }}</p></div>
+            <div class="intro_text"><p>Автор поста: {{ fastes.author }}</p></div>
+            <div class="intro_text"><p>Публикация поста: {{ fastes.date }}</p></div>
+        </div>
+    {% endfor%}
+</div>
+
+
+
+{% endblock %}

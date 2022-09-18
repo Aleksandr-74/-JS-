@@ -1,0 +1,21 @@
+{% extends 'base_block.html'%}
+{% block forma %}
+<div class="send_fast ">
+    <form action="" method="post">
+         <div class="send">
+            <input type="text" name="user" placeholder="Введите имя">
+        </div>
+        <div class="send">
+            <input type="text" name="header_fast" placeholder="Заголовок поста">
+        </div>
+        <div class="send">
+            <input type="date" name="date" >
+        </div>
+        <textarea type ="text"  name="fast" id=""></textarea>
+        <div class="send">
+            <input type="submit" name="submit" value="Оtправить">
+        </div>
+        
+    </form>
+</div>
+{% endblock %}

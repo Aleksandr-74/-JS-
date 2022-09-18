@@ -1,0 +1,14 @@
+{% extends 'base_block.html'%}
+{% block content%}
+<div class="row_block">
+    <a href="/user?sorting=name" class="btn"><input class="btn" type="button" value="Имя"></a>
+    <a href="/user?sorting=email" class="btn"><input class="btn" type="button" value="Почта"></a>
+</div>
+
+{% for user in listUser %}
+ <div class="row_block">
+     <p>{{ user.name }}</p>
+     <p>{{ user.email }}</p>
+</div>
+{% endfor %}
+{% endblock %}
