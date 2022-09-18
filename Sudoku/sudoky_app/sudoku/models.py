@@ -10,7 +10,15 @@ sudoku = [[5, 3, 0, 0, 7, 0, 0, 0, 0],
           [0, 0, 0, 4, 1, 9, 0, 0, 5],
           [0, 0, 0, 0, 8, 0, 0, 7, 9]]
 
-cops = []
+cops =  [[5, 3, 0, 0, 7, 0, 0, 0, 0],
+          [6, 0, 0, 1, 9, 5, 0, 0, 0],
+          [0, 9, 8, 0, 0, 0, 0, 6, 0],
+          [8, 0, 0, 0, 6, 0, 0, 0, 3],
+          [4, 0, 0, 8, 0, 3, 0, 0, 1],
+          [7, 0, 0, 0, 2, 0, 0, 0, 6],
+          [0, 6, 0, 0, 0, 0, 2, 8, 0],
+          [0, 0, 0, 4, 1, 9, 0, 0, 5],
+          [0, 0, 0, 0, 8, 0, 0, 7, 9]]
 
 copy = {1, 2, 3, 4, 5, 6, 7, 8, 9}
 
@@ -30,7 +38,6 @@ def chek(a):
         row = set(a[i])
         colum = set()
         for j in range(n):
-            print(a[j][i])
             colum.add(a[j][i])
         if row != copy or colum != copy:
             return False
@@ -59,12 +66,10 @@ def chekColum(a):
 
 
 def game(a):
-    if not chekFilled(a):
-        return 'Oшибка!'
-    elif not chek(a):
-        return 'Ошибка!'
+    if not chek(a):
+        return 'Ошибка по горизонтали или вертикали!'
     elif not chekColum(sudoku):
-        return 'Ошибка'
+        return 'Ошибка в квадрате'
     else:
         return 'Верно!'
 #

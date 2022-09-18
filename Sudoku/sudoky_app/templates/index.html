@@ -3,27 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-
-    <title>Title</title>
+    <title>Sudoku</title>
 </head>
 <body>
-
-<form  class="game" action="" method="post">
-    {% for i in range(9) %}
-        <div class="for">
-            {% for j in range(9) %}
-                {% if sudoku[i][j] == 0 %}
-                    <input class="el" name="{{ i }}{{ j }}" type="number" min="1" max="9">
-                {% else %}
-                    <textarea disabled=disabled name="{{ i }}{{ j }}" >{{ sudoku[i][j] }}</textarea>
-                {% endif %}
-
-            {% endfor %}
+<div class="sud">
+    <form  class="game" action="" method="post">
+        {% for i in range(9) %}
+            <div class="for">
+                {% for j in range(9) %}
+                    {% if sudoku[i][j] == 0 %}
+                        <input class="el" name="{{ i }}{{ j }}" type="number" min="1" max="9">
+                    {% else %}
+                        <textarea class="el" disabled=disabled name="{{ i }}{{ j }}">{{ sudoku[i][j] }}</textarea>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        {% endfor %}
+        <div class="btn">
+            <input  type="submit" value="Оtправить">
+            <input  type="submit" value="Cброс" name="clear">
         </div>
-    {% endfor %}
-    <input type="submit" value="Оtправить">
-    <input type="submit" value="Cсброс" name="clear">
-</form>
+    </form>
+</div>
+<div class="res"><h3>Рузультат: {{ res }}</h3></div>
 </body>
 </html>
 
