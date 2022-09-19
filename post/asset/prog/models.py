@@ -6,22 +6,16 @@ class UserForm(FlaskForm):
     name = StringField("name: ", validators=[DataRequired(), Length(min=1, max=30, message=None)])
     email = StringField("email: ", validators=[Email()])
     password = StringField("password: ", validators=[InputRequired(), Length(max=30, message=None)])
-    submit = SubmitField()
+    submit = SubmitField('Отправить')
 
-
-# class FastForm(FlaskForm):
-#     name = StringField("name: ", validators=[DataRequired(), Length(min=1, max=30, message=None)])
-#     fast = StringField("fast: ", validators=[DataRequired(), Length(min=1, message=None)])
-#
-#
-#     submit = SubmitField()
 
 class UserFast():
-    def __init__(self, name, fast, author, date):
+    def __init__(self, name, fast, author, date, filеs):
         self.name = name
         self.fast = fast
         self.author = author
         self.date = date
+        self.files = files
 
 
 
