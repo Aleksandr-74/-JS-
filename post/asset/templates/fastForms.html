@@ -1,24 +1,14 @@
 {% extends 'base_block.html'%}
 {% block forma %}
 <div class="send_fast ">
-    <form enctype="multipart/form-data" method="post">
-         <div class="send">
-            <input type="text" name="user" placeholder="Введите имя">
-        </div>
-        <div class="send">
-            <input type="text" name="header_fast" placeholder="Заголовок поста">
-        </div>
-        <div class="send">
-            <input type="date" name="date">
-        </div>
-        <textarea type ="text"  name="fast" id=""></textarea>
-        <div class="send">
-            <input type="file" name="photo" multiple accept="image/*,image/jpeg">
-        </div>
+    <form enctype="multipart/form-data" method="POST">
+        {{ form.csrf_token() }}
+        {% for field in form if field.name != "csrf_token" %}
+            <div class="send">
+                {{ field }}
+            </div>
+        {% endfor %}
 
-        <div class="send">
-            <input type="submit" name="submit" value="Оtправить">
-        </div>
         
     </form>
 </div>

@@ -37,16 +37,32 @@ def user():
         return render_template("user.html", listUser=listUser)
 
 
+
+
+
 @app.route('/fastForms',  methods=['GET', 'POST'])
 def fast_forms():
-    if request.method == 'POST':
-        name = request.form.get('header_fast')
-        fast = request.form.get('fast')
-        author = request.form.get('user')
-        date = request.form.get('date')
-        fastes = UserFast(name, fast, author, date)
+    form = UserFast()
+    if form.validate_on_submit():
+        name = form.name.data
+        headerLogo = form.headerLogo.data
+        date = form.date.data
+        message = form.message.data
+        files = form.files.data
+        fastes = UserFast(name, headerLogo, date, message, files)
         listFast.append(fastes)
         return redirect(url_for('hello'))
+    return render_template("fastForms.html", form=form)
+
+
+    # if request.method == 'POST':
+    #     name = request.form.get('header_fast')
+    #     fast = request.form.get('fast')
+    #     author = request.form.get('user')
+    #     date = request.form.get('date')
+    #     fastes = UserFast(name, fast, author, date)
+    #     listFast.append(fastes)
+    #     return redirect(url_for('hello'))
         # for i in listUser:
         #     if i.name == author:
         #         listFast.append(fastes)
@@ -54,5 +70,5 @@ def fast_forms():
         # else:
         #     print('No')
         #     return redirect(url_for('forms'))
-    return render_template("fastForms.html")
+    # return render_template("fastForms.html")
 
