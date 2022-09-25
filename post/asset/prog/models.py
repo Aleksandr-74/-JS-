@@ -1,13 +1,14 @@
 from flask_wtf.file import FileAllowed
+
 from wtforms import StringField, SubmitField, TextAreaField, FileField
 from wtforms.validators import DataRequired, Length, Email, InputRequired
 from flask_wtf import FlaskForm
 
 
 class UserForm(FlaskForm):
-    name = StringField("name: ", validators=[DataRequired(), Length(min=1, max=30, message=None)])
+    name = StringField("Имя: ", validators=[DataRequired(), Length(min=1, max=30, message=None)])
     email = StringField("email: ", validators=[Email()])
-    password = StringField("password: ", validators=[InputRequired(), Length(max=30, message=None)])
+    password = StringField("Пароль: ", validators=[InputRequired(), Length(max=30, message=None)])
     submit = SubmitField('Отправить')
 
 
@@ -16,15 +17,22 @@ class UserFast(FlaskForm):
                        render_kw={"placeholder": "Введите имя"})
     headerLogo = StringField(validators=[DataRequired(), Length(min=1, max=255, message=None)],
                              render_kw={"placeholder": "Заголовок поста"})
-    date = StringField()
     message = TextAreaField()
     files = FileField(validators=[FileAllowed(['jpg', 'png'])])
     submit = SubmitField('Отправить')
 
 
-
 listUser = []
 listFast = []
+
+
+class Fast():
+    def __init__(self, name, headerLogo, message,  files, now):
+        self.name = name
+        self.headerLogo = headerLogo
+        self.message = message
+        self.files = files
+        self.now = now
 
 
 class User():

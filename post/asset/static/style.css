@@ -5,22 +5,33 @@
 }
 
 .body{
-    margin: 0, auto;
-    font-family: Cambria, serif;
-    font-size: 14px;
-    color: rgb(255, 250, 250);
-    line-height: 24px;
+    font-weight: 400;
+    font-family: "SFUIDisplay-Light", sans-serif;
+    font-size: 16px;
+    line-height: 1.2;
+    color: #313131;
+    min-width: 320px;
+    min-height: 100vh;
+    position: relative;
+    overflow-x: hidden;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    background-image: linear-gradient(to bottom, #000, #000, rgba(0, 0, 0, 0));
+    
 }
 
-p{
-    padding: 5px;
-    text-align: center;
-    font-family: sans-serif;
-    text-transform: uppercase;
-    color: #f7f7f7;
-    text-shadow: 0px 0px 4px black;
+h1, h2, h3, h4{
+    font-family: "SFUIDisplay-Light", sans-serif;
 }
 
+ul{
+    list-style: none;
+}
+
+a{
+    text-decoration: none;
+}
 
 a:hover {
     font-family: sans-serif;
@@ -30,92 +41,79 @@ a:hover {
 }
 
 
-.activ{
-    color:#deb887;
-    text-decoration: underline;
-}
-
-.label{
-    font-family: sans-serif;
-    text-transform: uppercase;
-    color: #f7f7f7;
-}
-
-.background{
-    min-height: 100%;
-    min-width: 640px;
-    width: 100%;
-    height: auto;
-    position: fixed;
-    top: 0;
-    left: 0;
-}
-
-header{
-    height: 90px;
-    position: relative;
-}
-
-.header_content {
-    margin-top: 50px;
-    margin-bottom: 50px;
-    text-align: center;
-    font-size: 25px;
-    font-family: sans-serif;
-    text-transform: uppercase;
-    color: #f7f7f7;
-    text-shadow: 0px 0px 4px black;
-}
-
-.line_text{
-    font-size: 15px;
-    font-family: sans-serif;
-    text-transform: uppercase;
-    color: #f7f7f7;
-    text-shadow: 0px 0px 4px black;
+ul, a {
+    font-size: 1.0625rem;
+    font-family: 'SFUIDisplay', sans-serif;
+    color: #313131;
+    text-transform: uppercase
 }
 
 .contener{
     width: 1140px;
     margin-left: auto;
-    margin-right: auto;
-    position: relative;
+    margin-right: auto;   
 }
 
-ul, a {
-    font-family: sans-serif;
+.top_header{
+    box-shadow: 0px 0px 29px 13px rgb(42 40 42 / 29%);
+    border-radius: 0 0 12px 12px;
     text-transform: uppercase;
-    color: #f7f7f7;
-    text-decoration: none;
-    list-style: none;
 }
 
-.logo_header{
-    width: max-content;
-    margin-left: 20px;
-    padding-top: 10px;
+.activ{
+    color:#deb887;
+    text-decoration: underline;
 }
 
 .logo {
     font-size: 25px;
-    font-family: sans-serif;
     text-transform: uppercase;
-    color: #f7f7f7;
-    text-shadow: 10px 0px 6px black;
+    margin-bottom: 30px;
+
 }
 
-ul.menu {
+
+ul.menu  {
+    padding: 22px 15px 25px;
     display: flex;
-    justify-content: right;
+    justify-content: space-evenly;
     gap: 15px;
-    font-size: 12px;
-    font-family: sans-serif;
-    text-transform: uppercase;
-    margin-bottom: 15px;
+    margin-bottom: 50px;
     margin-top: 15px;
     margin-right: 5px;
 }
 
+
+/* блок постов */
+
+.title{
+
+}
+
+.item{
+    margin-bottom: 30px;
+    
+}
+.item_img{
+    float: left; margin-right: 20px;
+    margin-bottom: 5px;
+}
+
+.item_title{
+    margin-bottom: 15px;
+
+}
+.item_message{
+    display: flex;
+    gap: 30px;
+    justify-content: flex-end;
+    margin-bottom: 5px;
+}
+.massage{
+   margin-bottom: 5px;
+}
+
+/*  */
 .row_block{
     margin-top: 15px;
     display: grid;
@@ -139,9 +137,7 @@ ul.menu {
 }
 
 .fast_block{
-    display: grid;
-    /* grid-column: ; */
-    justify-content: space-around;
+    display: flex;
 }
 
 .intro_img{
@@ -154,7 +150,7 @@ ul.menu {
 label{
     font-family: sans-serif;
     text-transform: uppercase;
-    color: #f7f7f7;
+    color: #0c0808;
 }
 
 
@@ -202,5 +198,4 @@ textarea{
 }
 
 /* блок поста */
-
 
