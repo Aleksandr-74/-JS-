@@ -3,19 +3,15 @@
 <div class="hedear_content">
     <div class="logo"><h4>Наши посты</h4></div>
 </div>
-
-
     {% for fastes in listFast %}
         <div class="item">
             <div class="item_title"><h2 class="title">{{ fastes.headerLogo }}</h2></div>
-
-            <div class="item_img"><a href="#"><img alt="" class="background" src="\static\img\png-transparent-computer-icons-building-building.png"></a></div>
+            <div class="item_img"><a href="#"><img alt="" class="background" src="\static\img\pngwing.png"></a></div>
             <div class="massage"><p>{{ fastes.message }}</p></div>
             <div class="item_message">
                 <div class="intro_text"><p>Автор поста: {{ fastes.name }}</p></div>
                 <div class="intro_text"><p>Публикация поста: {{ fastes.now.strftime("%d.%m.%Yг.")}} </p></div>
             </div>
-            
             <a href="#"><button class="t-btn" style="margin-top: 20px;">подробнее</button></a>
         </div>
     {% endfor%}

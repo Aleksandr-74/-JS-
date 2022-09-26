@@ -19,7 +19,6 @@ def forms():
         password = form.password.data
         user = User(name, email, password)
         listUser.append(user)
-        print(len(listUser))
         return redirect(url_for('user'))
     return render_template("forms.html", form=form, User=User)
 
