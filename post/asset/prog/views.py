@@ -1,7 +1,7 @@
 from flask import render_template, redirect, url_for, request
 import datetime
 from asset import app
-from asset.prog.models import User, UserForm, listUser, UserFast, listFast, Fast
+from asset.prog.models import User, UserForm, listUser, UserFast, listFast, Fast, addUser
 
 
 @app.route('/')
@@ -18,6 +18,7 @@ def forms():
         email = form.email.data
         password = form.password.data
         user = User(name, email, password)
+        addUser(user)
         listUser.append(user)
         return redirect(url_for('user'))
     return render_template("forms.html", form=form, User=User)

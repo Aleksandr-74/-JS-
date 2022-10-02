@@ -1,8 +1,12 @@
+import sqlite3
+
 from flask_wtf.file import FileAllowed
 
 from wtforms import StringField, SubmitField, TextAreaField, FileField
 from wtforms.validators import DataRequired, Length, Email, InputRequired
 from flask_wtf import FlaskForm
+
+from asset import DB_PATH
 
 
 class UserForm(FlaskForm):
@@ -20,6 +24,26 @@ class UserFast(FlaskForm):
     message = TextAreaField()
     files = FileField(validators=[FileAllowed(['jpg', 'png'])])
     submit = SubmitField('Отправить')
+
+def addUser(user):
+    try:
+        connection = sqlite3.connect(DB_PATH)
+        cur = connection.cursor()
+        cur.execute(f'''
+            INSERT INTO users(name, email, password)
+            VALUES('{user.name}','{user.email}','{user.password}')
+            ''')
+        connection.commit()
+        cur.close()
+
+    except sqlite3.Error as error:
+        print(f'Не удалось подключится к базе: {error}')
+
+    finally:
+        if connection:
+            connection.close()
+
+
 
 
 listUser = []
