@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock %}</title>
+</head>
+<body>
+    <header>
+        <div class="top_header">
+            <div class="top_line">
+            </div>
+            <div class="nav">
+                <div class="inner">
+                    <ul class="nav_menu">
+                        <li><a href="/index">Главнвя</a></li>
+                        <li><a href="list_fines">Список штрафов</a></li>
+                        <li><a href="/fines">Назначения штрафа</a></li>
+                        <li><a href="#">Поиск штрафов</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </header>
+    <div class="content">
+
+        {% block content %}
+        {% endblock %}
+        {% block forma %}
+        {% endblock %}
+
+    </div>    
+    
+</body>
+</html>
