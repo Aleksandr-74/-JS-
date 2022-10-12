@@ -21,12 +21,17 @@ def fine_forms():
     if form.validate_on_submit():
         name = form.name.data
         number_plate = form.number_plate.data
+
         violations = form.violations.data
-        sum_fine = form.sum_fine.data
+        # sum_fine = form.sum_fine.data
         date_violation = form.date_violations.data
-        intruder = Intruder(name, number_plate)
-        fines = Fine(violations, sum_fine, date_violation)
-        addViolation(intruder, fines)
+
+        driver = Intruder(name, number_plate)
+        driverFine = Fine(violations, date_violation)
+
+        # intruder = Intruder(name, number_plate)
+        # fines = Fine(violations, sum_fine, date_violation)
+        addViolation(driver, driverFine)
         return redirect(url_for('list'))
     return render_template('fine.html', form=form)
 

@@ -8,7 +8,6 @@ from asset_app import DB_PATH
 
 class Intruder:
     def __init__(self, name, number_plate):
-
         self.name = name
         self.number_plate = number_plate
 #         self.identifier = identifier
@@ -21,6 +20,7 @@ class Fine:
         self.violations = violations
         self.sum_fine = sum_fine
         self.date_violation = date_violation
+        self.date_payment = date_payment
 
 
 class Violation(FlaskForm):
@@ -60,13 +60,39 @@ def searchFines(number):
 
 
 
-def addViolation(intruder, fines):
+def addViolation(driver, driverFine):
     print('подключится к базе')
     try:
         connection = sqlite3.connect(DB_PATH)
         cur = connection.cursor()
         cur.execute(f'''
-                    INSERT INTO fines(name, number_plate, violation, sum_fine, date_violation, date_payment)
+            INSERT INTO user(name, number_plate)
+            VALUES('{driver.name}', '{driver.number_plate}')
+            ''')
+        connection.commit()
+        cur.close()
+
+        connection = sqlite3.connect(DB_PATH)
+        cur = connection.cursor()
+        cur.execute(f''' 
+            
+            INSERT INTO userFines(user_id, violation_id, date_violation, date_payment)
+            SELECT user.user_id, violation.violation_id, date_violation, date_payment
+            FROM user 
+                INNER JOIN userFines ON user.user_id=userFines.user_id,
+                INNER JOIN violation ON violation.violation_id=userFines.violation_id
+            WHERE violation = '{driverFine.violation}' AND user = '{user.name}'
+            VALUES   
+              
+            
+            
+        
+        
+        
+        connection = sqlite3.connect(DB_PATH)
+        cur = connection.cursor()
+        cur.execute(f'''
+                    INSERT INTO fines(, violation, sum_fine, date_violation, date_payment)
                     VALUES('{intruder.name}','{intruder.number_plate}','{fines.violations}',
                             '{fines.sum_fine}', '{fines.date_violation}', Null);
                     ''')
