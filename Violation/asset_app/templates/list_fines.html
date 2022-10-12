@@ -2,7 +2,7 @@
 {% block content %}
 <table>
     <tr>
-        <th>fine_id</th>
+        <th>№</th>
         <th>Имя</th>
         <th>Гос номер</th>
         <th>Нарушение</th>
@@ -13,7 +13,11 @@
     {% for fines in current_fine %}
         <tr>
         {% for i in fines %}
+        {% if  i  == None %}
+           <td>Неоплачен</td>
+         {% else %}
             <td>{{ i }}</td>
+         {% endif %}
         {% endfor %}
         </tr>
     {% endfor %}

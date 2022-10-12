@@ -25,18 +25,39 @@ class Fine:
 
 class Violation(FlaskForm):
     name = StringField("Имя", validators=[DataRequired(), Length(min=1, max=30, message=None)])
-    number_plate = SearchField("Гос номер", validators=[DataRequired(), Length(min=1, max=6, message=None)])
+    number_plate = StringField("Гос номер", validators=[DataRequired(), Length(min=1, max=6, message=None)])
     violations = StringField('Нарушение', validators=[DataRequired()])
     sum_fine = StringField("Сумма", validators=[DataRequired()])
     date_violations = DateField("Дата нарушения", format='%Y-%m-%d', validators=[DataRequired()])
     submit = SubmitField('Отправить')
 
 
-class searchForm(FlaskForm):
-    # number_plate = Se("Гос номер", validators=[DataRequired(), Length(min=1, max=6, message=None)])
-    pass
-def searchFines():
-    pass
+class SearchForm(FlaskForm):
+    number_plate = SearchField("Гос номер", validators=[DataRequired(), Length(min=1, max=6, message=None)])
+    submit = SubmitField('Отправить')
+
+
+def searchFines(number):
+    try:
+        connection = sqlite3.connect(DB_PATH)
+        cursor = connection.cursor()
+        cursor.execute(
+            f'''
+                SELECT name, number_plate, violation, sum_fine, date_violation, date_payment	
+                FROM fines
+                WHERE number_plate = '{number}'
+            '''
+        )
+        current_fine = cursor.fetchall()
+    except sqlite3.Error as error:
+        print(f'Не удалось подключиться к бд: {error}')
+
+    finally:
+        if connection:
+            connection.close()
+
+    return current_fine
+
 
 
 def addViolation(intruder, fines):

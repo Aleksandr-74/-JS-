@@ -1,7 +1,7 @@
 from flask import render_template, redirect, url_for, request
 
 from asset_app import app, DB_PATH
-from asset_app.modul.models import Violation, Intruder, Fine, addViolation, finesUser
+from asset_app.modul.models import Violation, Intruder, Fine, addViolation, finesUser, SearchForm, searchFines
 
 
 @app.route('/')
@@ -27,6 +27,17 @@ def fine_forms():
         intruder = Intruder(name, number_plate)
         fines = Fine(violations, sum_fine, date_violation)
         addViolation(intruder, fines)
-
-        return redirect(url_for('list')) # не работает
+        return redirect(url_for('list'))
     return render_template('fine.html', form=form)
+
+
+@app.route('/search', methods=['GET', 'POST'])
+def search_forms():
+    form = SearchForm()
+
+    if form.validate_on_submit():
+        number_plate = form.number_plate.data
+        current_fine = searchFines(number_plate)
+        return render_template('searchViolation.html', form=form, current_fine=current_fine)
+
+    return render_template('searchViolation.html', form=form)
