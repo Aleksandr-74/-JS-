@@ -28,5 +28,5 @@ def fine_forms():
         fines = Fine(violations, sum_fine, date_violation)
         addViolation(intruder, fines)
 
-        return redirect(url_for('index')) # не работает
+        return redirect(url_for('list')) # не работает
     return render_template('fine.html', form=form)

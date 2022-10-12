@@ -1,6 +1,6 @@
 import sqlite3
 
-from wtforms import StringField, SubmitField, DateField
+from wtforms import StringField, SubmitField, DateField, SearchField
 from wtforms.validators import DataRequired, Length
 from flask_wtf import FlaskForm
 from asset_app import DB_PATH
@@ -25,11 +25,18 @@ class Fine:
 
 class Violation(FlaskForm):
     name = StringField("Имя", validators=[DataRequired(), Length(min=1, max=30, message=None)])
-    number_plate = StringField("Гос номер", validators=[DataRequired(), Length(min=1, max=6, message=None)])
+    number_plate = SearchField("Гос номер", validators=[DataRequired(), Length(min=1, max=6, message=None)])
     violations = StringField('Нарушение', validators=[DataRequired()])
     sum_fine = StringField("Сумма", validators=[DataRequired()])
     date_violations = DateField("Дата нарушения", format='%Y-%m-%d', validators=[DataRequired()])
     submit = SubmitField('Отправить')
+
+
+class searchForm(FlaskForm):
+    # number_plate = Se("Гос номер", validators=[DataRequired(), Length(min=1, max=6, message=None)])
+    pass
+def searchFines():
+    pass
 
 
 def addViolation(intruder, fines):
