@@ -53,30 +53,17 @@ def searchFines(number):
     return current_fine
 
 
-def summ():
-    try:
-        connection = sqlite3.connect(DB_PATH)
-        cursor = connection.cursor()
-        cursor.execute(
-                '''
-                 UPDATE offense, violation
-                    SET offense.sum_fine = violation.sum_fine
-                    WHERE offense.violation = violation.violation;
-                
-                '''
-
-
-                )
-
-        connection.commit()
-        cursor.close()
-
-    except sqlite3.Error as error:
-        print(f'Не удалось подключиться summ к бд: {error}')
-
-    finally:
-        if connection:
-            connection.close()
+# def summ():
+#     try:
+#
+#
+#         print('подключится к базе')
+#     except sqlite3.Error as error:
+#         print(f'Не удалось подключиться summ к бд: {error}')
+#
+#     finally:
+#         if connection:
+#             connection.close()
 
 
 def addViolation(driver, violation, date_violation):
@@ -89,6 +76,16 @@ def addViolation(driver, violation, date_violation):
             VALUES('{driver.name}', '{driver.number_plate}', '{violation}', 
             Null, '{date_violation}', Null);                   
          ''')
+        connection.commit()
+        cursor.close()
+
+        connection = sqlite3.connect(DB_PATH)
+        cursor = connection.cursor()
+        cursor.execute('''
+                    UPDATE offense
+                    SET sum_fine = (SELECT sum_fine FROM violation)
+                    WHERE violation = (SELECT violation FROM violation)       
+                ''')
         connection.commit()
         cursor.close()
         print('подключится к базе')
