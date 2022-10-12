@@ -3,7 +3,6 @@ import os
 import sqlite3
 
 
-
 DB_PATH = os.path.abspath('dataBase3.db')
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'Sany'
@@ -12,38 +11,29 @@ if not os.path.isfile(DB_PATH):
     try:
         sqlite_connection = sqlite3.connect(DB_PATH)
         cur = sqlite_connection.cursor()
-        cur.execute(''' 
-            CREATE TABLE user(
-                user_id INTEGER PRIMARY KEY AUTOINCREMENT,
-                name VARCHAR(30),
-                number_plate VARCHAR(6)
-            );  
-        ''')
-        sqlite_connection = sqlite3.connect(DB_PATH)
-        cur = sqlite_connection.cursor()
         cur.execute('''
             CREATE TABLE violation(
                 violation_id INTEGER PRIMARY KEY AUTOINCREMENT,
-                violation VARCHAR(255),
-                sum_fine DECIMAL(8,2)
+                violation VARCHAR(255),  
+                sum_fine DECIMAL(8,2)            
             );  
         ''')
+
         sqlite_connection = sqlite3.connect(DB_PATH)
         cur = sqlite_connection.cursor()
         cur.execute('''    
-            CREATE TABLE userFines(
-                userFines INTEGER PRIMARY KEY AUTOINCREMENT,
-                user_id INT NOT NULL,
-                violation_id INT NOT NULl,
+            CREATE TABLE offense(
+               offense_id INTEGER PRIMARY KEY AUTOINCREMENT,
+                name VARCHAR(30),
+                number_plate VARCHAR(6),
+                violation VARCHAR(255),
+                sum_fine DECIMAL(8,2),
                 date_violation DATE,
-                date_payment DATE,
-                FOREIGN KEY (user_id) REFERENCES user (user_id),
-                FOREIGN KEY (violation_id) REFERENCES violation (violation_id) 
+                date_payment DATE 
             ); 
         ''')
-
-
         print("База данных создана и успешно подключена к SQLite")
+
     except sqlite3.Error as error:
         print(f"Ошибка при подключении к sqlite: {error}")
 

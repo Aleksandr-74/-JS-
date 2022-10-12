@@ -10,24 +10,20 @@ class Intruder:
     def __init__(self, name, number_plate):
         self.name = name
         self.number_plate = number_plate
-#         self.identifier = identifier
-#         self.violations = violations
-# self.sum_fine = sum_fine
-# self.date_violation = date_violation
+        # self.violation = violation
+        # self.date_violation = date_violation
 
 class Fine:
-    def __init__(self, violations,  sum_fine, date_violation):
+    def __init__(self, violations, sum_fine):
         self.violations = violations
         self.sum_fine = sum_fine
-        self.date_violation = date_violation
-        self.date_payment = date_payment
+
 
 
 class Violation(FlaskForm):
     name = StringField("Имя", validators=[DataRequired(), Length(min=1, max=30, message=None)])
     number_plate = StringField("Гос номер", validators=[DataRequired(), Length(min=1, max=6, message=None)])
     violations = StringField('Нарушение', validators=[DataRequired()])
-    sum_fine = StringField("Сумма", validators=[DataRequired()])
     date_violations = DateField("Дата нарушения", format='%Y-%m-%d', validators=[DataRequired()])
     submit = SubmitField('Отправить')
 
@@ -41,16 +37,14 @@ def searchFines(number):
     try:
         connection = sqlite3.connect(DB_PATH)
         cursor = connection.cursor()
-        cursor.execute(
-            f'''
+        cursor.execute(f'''
                 SELECT name, number_plate, violation, sum_fine, date_violation, date_payment	
-                FROM fines
-                WHERE number_plate = '{number}'
-            '''
-        )
+                FROM offense
+                WHERE number_plate = '{number}';
+            ''')
         current_fine = cursor.fetchall()
     except sqlite3.Error as error:
-        print(f'Не удалось подключиться к бд: {error}')
+        print(f'Не удалось подключиться searchFines к бд : {error}')
 
     finally:
         if connection:
@@ -59,49 +53,50 @@ def searchFines(number):
     return current_fine
 
 
+def summ():
+    try:
+        connection = sqlite3.connect(DB_PATH)
+        cursor = connection.cursor()
+        cursor.execute(
+                '''
+                 UPDATE offense, violation
+                    SET offense.sum_fine = violation.sum_fine
+                    WHERE offense.violation = violation.violation;
+                
+                '''
 
-def addViolation(driver, driverFine):
+
+                )
+
+        connection.commit()
+        cursor.close()
+
+    except sqlite3.Error as error:
+        print(f'Не удалось подключиться summ к бд: {error}')
+
+    finally:
+        if connection:
+            connection.close()
+
+
+def addViolation(driver, violation, date_violation):
     print('подключится к базе')
     try:
         connection = sqlite3.connect(DB_PATH)
-        cur = connection.cursor()
-        cur.execute(f'''
-            INSERT INTO user(name, number_plate)
-            VALUES('{driver.name}', '{driver.number_plate}')
-            ''')
+        cursor = connection.cursor()
+        cursor.execute(f'''
+            INSERT INTO offense(name, number_plate, violation, sum_fine, date_violation, date_payment)
+            VALUES('{driver.name}', '{driver.number_plate}', '{violation}', 
+            Null, '{date_violation}', Null);                   
+         ''')
         connection.commit()
-        cur.close()
-
-        connection = sqlite3.connect(DB_PATH)
-        cur = connection.cursor()
-        cur.execute(f''' 
-            
-            INSERT INTO userFines(user_id, violation_id, date_violation, date_payment)
-            SELECT user.user_id, violation.violation_id, date_violation, date_payment
-            FROM user 
-                INNER JOIN userFines ON user.user_id=userFines.user_id,
-                INNER JOIN violation ON violation.violation_id=userFines.violation_id
-            WHERE violation = '{driverFine.violation}' AND user = '{user.name}'
-            VALUES   
-              
-            
-            
-        
-        
-        
-        connection = sqlite3.connect(DB_PATH)
-        cur = connection.cursor()
-        cur.execute(f'''
-                    INSERT INTO fines(, violation, sum_fine, date_violation, date_payment)
-                    VALUES('{intruder.name}','{intruder.number_plate}','{fines.violations}',
-                            '{fines.sum_fine}', '{fines.date_violation}', Null);
-                    ''')
-        connection.commit()
-        cur.close()
+        cursor.close()
         print('подключится к базе')
 
+
+
     except sqlite3.Error as error:
-        print(f'Не удалось подключится к базе: {error}')
+        print(f'Не удалось подключится addViolation к базе: {error}')
 
     finally:
         if connection:
@@ -113,16 +108,16 @@ def finesUser():
         connection = sqlite3.connect(DB_PATH)
         cursor = connection.cursor()
         cursor.execute(
-            '''
-                SELECT fines_id, name, number_plate, violation, sum_fine, date_violation, date_payment	
-                FROM fines
-            '''
-        )
-
+            '''               
+                SELECT offense_id, name, number_plate, violation, sum_fine, date_violation, date_payment	
+                FROM offense;
+                       
+            ''')
         current_fine = cursor.fetchall()
+        cursor.close()
 
     except sqlite3.Error as error:
-        print('Не удалось подключиться к бд', error)
+        print(f'Не удалось подключиться finesUser к бд: {error}')
 
     finally:
         if connection:
